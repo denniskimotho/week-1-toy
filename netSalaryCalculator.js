@@ -2,7 +2,7 @@
 
 function calculateSalary() {
     //Prompting the user to enter basic salary
-    const basicSalary = parseFloat(prompt("Enter your gross salary:"));
+    const basicSalary = parseFloat(prompt("Enter your gross salary in KES:"));
 
     //Validating data entered is in correct format i.e it is a number
     if (!isNaN(basicSalary)) {
@@ -31,22 +31,26 @@ function calculateSalary() {
       
       //deducting personal relief the tax payable
       let personalRelief = 2400;
-       let taxable = payee - personalRelief;
+       let tax = payee - personalRelief;
       
 
-  
       // Calculate Net Salary
-      const netSalary = grossSalary - taxable - nhifDeductions - nssfDeductions-houseLevy;
-  
-      console.log(`Gross Salary: ${grossSalary}`);
-      console.log(`Payee (Tax): ${taxable}`);
-      console.log(`NHIF Deductions: ${nhifDeductions}`);
-      console.log(`NSSF Deductions: ${nssfDeductions}`);
-      console.log(`House Levy: ${houseLevy}`);
-      console.log(`Net Salary: ${netSalary.toFixed(2)}`);
+      const netSalary = grossSalary - tax - nhifDeductions - nssfDeductions-houseLevy;
+
+
+      //converting the amount to number format
+      let grossnum = grossSalary.toLocaleString('en-US', { style: 'currency', currency: 'KES' }) //gross salary number format
+      let taxnum = tax.toLocaleString('en-US', { style: 'currency', currency: 'KES' })  //total tax number format
+      let nhifnum = nhifDeductions.toLocaleString('en-US', { style: 'currency', currency: 'KES' }) //nhif number format
+      let nssfnum = nssfDeductions.toLocaleString('en-US', { style: 'currency', currency: 'KES' }) //nssf number format
+      let housenum = houseLevy.toLocaleString('en-US', { style: 'currency', currency: 'KES' }) //house levy number format
+      let netSalarynum = netSalary.toLocaleString('en-US', { style: 'currency', currency: 'KES' }) //net sslary number format
+
+      alert(`Gross Salary: ${grossnum}\nPayee (Tax): ${taxnum}\nNHIF Deductions:${nhifnum}\nNSSF Deductions: ${nssfnum}\nHouse Levy: ${housenum}\nNet Salary: ${netSalarynum}`);
+     
     } else {
         // displays error if data entered not a number
-      console.log("Invalid input! Please enter valid numeric values for salary and benefits.");
+      alert("Invalid input! Please enter valid numeric values for salary and benefits.");
     }
   }
 
@@ -83,8 +87,7 @@ function calculateSalary() {
         nhifDeductions = 1000;
       }else if (grossSalary <= 49999) {
         nhifDeductions = 1100;
-      }
-      else if (grossSalary <= 59999) {
+      }else if (grossSalary <= 59999) {
         nhifDeductions = 1200;
       }else if (grossSalary <= 69999) {
         nhifDeductions = 1300;
@@ -101,4 +104,3 @@ function calculateSalary() {
   }
   
   calculateSalary();
-  
